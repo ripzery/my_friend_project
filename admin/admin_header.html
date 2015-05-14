@@ -11,20 +11,12 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right" style="margin-top: 10px; margin-right: 10px">
-            <li>
-                <form class="form-inline" ng-submit="login()">
-                    <div class="form-group">
-                        <label for="username" style="color:#ffffff;">Username : </label>
-                        <input id="username" name="username" type="text" maxlength="12" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="password" style="color:#ffffff;">Password : </label>
-                        <input id="password" name="password" type="password" maxlength="12" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <input class="btn btn-primary" type="submit" value="Submit">
-                    </div>
-                </form>
+            <li >
+            <form ng-submit="logout()">
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" value="Logout">
+                </div>
+            </form>
             </li>
         </ul>
     </div>
