@@ -137,7 +137,28 @@ myApp.controller('doctorController',function($scope,$state,$http){
                 console.log(result);
                 $scope.patients.push(result[0]);
             })
-    }
+    };
 
+    $scope.removePatient = function (index) {
+        $http.post('database/remove_patient.php', {
+            id: $scope.patients[index].id
+        })
+            .success(function (data, status, headers, config) {
+                alert(data);
+            });
+        $scope.patients.splice(index, 1);
+    };
 
+    // logging out and redirect to login page
+    $scope.logout = function () {
+        $http.post('database/logout.php')
+            .success(function (data) {
+                if (data == "success") {
+                    $state.go('index');
+                }else{
+                    console.log("fail");
+                    $state.go('index');
+                }
+            });
+    };
 });
