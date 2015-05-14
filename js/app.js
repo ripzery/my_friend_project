@@ -21,11 +21,11 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
             url: '/admin',
             views: {
                 "navbar":{
-                    templateUrl: "admin_header.html",
+                    templateUrl: "admin/admin_header.html",
                     controller: 'adminController'
                 },
                 "content":{
-                    templateUrl: "admin.html"
+                    templateUrl: "admin/admin.html"
                 }
             }
         });
