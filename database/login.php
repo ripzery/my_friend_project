@@ -7,7 +7,7 @@ $request = json_decode($postdata);
 //$password = $_POST['password'];
 
 // find user that match request username and password
-$user = R::findOne('User', ' user_name = :username AND user_pass = :password ',
+$user = R::findOne('users', ' user_name = :username AND user_pass = :password ',
     array(
         ':username' => $request->username,
         ':password' => $request->password

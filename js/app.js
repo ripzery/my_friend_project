@@ -24,7 +24,8 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
                     controller: 'doctorController'
                 },
                 "content":{
-                    templateUrl: "doctor/doctor.html"
+                    templateUrl: "doctor/doctor.html",
+                    controller: 'doctorController'
                 }
             }
         })
@@ -36,7 +37,8 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
                     controller: 'adminController'
                 },
                 "content":{
-                    templateUrl: "admin/admin.html"
+                    templateUrl: "admin/admin.html",
+                    controller: 'adminController'
                 }
             }
         });
@@ -67,6 +69,21 @@ myApp.controller('homeController',function($scope,$state,$http){
 });
 
 myApp.controller('adminController',function($scope,$state,$http){
+    $scope.selectedItem = "admin";
+    $scope.status = ["admin","doctor"];
+
+    $scope.$on('$viewContentLoaded', function () {
+        $scope.loadUsers();
+    });
+
+
+    $scope.loadUsers = function(){
+        $http.post('database/load_users.php')
+            .success(function(data){
+                $scope.users = data;
+            });
+    };
+
     // logging out and redirect to login page
     $scope.logout = function () {
         $http.post('database/logout.php')
@@ -76,6 +93,13 @@ myApp.controller('adminController',function($scope,$state,$http){
                 }
             });
     };
+
+    $scope.addDoctor = function(){
+        $http.post('database/add_doctor.php',{username:$scope.username,password:$scope.password,status:$scope.selectedItem})
+            .success(function(result){
+                console.log(result);
+            })
+    }
 });
 
 myApp.controller('doctorController',function($scope,$state,$http){
