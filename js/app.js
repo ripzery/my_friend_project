@@ -83,6 +83,16 @@ myApp.controller('adminController',function($scope,$state,$http){
             });
     };
 
+    $scope.removeUser = function (index) {
+        $http.post('database/remove_user.php', {
+            id: $scope.users[index].id
+        })
+            .success(function (data, status, headers, config) {
+                alert(data);
+            });
+        $scope.users.splice(index, 1);
+    };
+
     // logging out and redirect to login page
     $scope.logout = function () {
         $http.post('database/logout.php')

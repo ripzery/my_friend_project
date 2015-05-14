@@ -50,7 +50,7 @@
                                     <td>{{ user.user_name }}</td>
                                     <td>{{ user.user_pass }}</td>
                                     <td>{{ user.status }}</td>
-                                    <td><a>Edit</a> <a>Delete</a></td>
+                                    <td><button class="btn btn-danger" ng-click="removeUser($index)">Delete</button></td>
                                 </tr>
                             </tbody>
                         </table>
