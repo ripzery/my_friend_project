@@ -31,17 +31,37 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
         });
 });
 
-myApp.controller('homeController',function($scope,$state){
+myApp.controller('homeController',function($scope,$state,$http){
     $scope.login = function(){
         console.log("/login");
-        $state.go('admin');
+
+    $http.post('database/login.php',{username: $scope.username, password: $scope.password })
+        .success(function (result) {
+            switch (result){
+                case "admin":
+                    console.log("Logged in as admin");
+                    $state.go('admin');
+                    break;
+                case "doctor":
+                    console.log("Logged in as doctor");
+                    break;
+                default:
+                    console.log("Logged in failed");
+                    break;
+            }
+        });
     };
 
 });
 
-myApp.controller('adminController',function($scope,$state){
-    $scope.logout = function(){
-        console.log("/logout");
-        $state.go('index');
+myApp.controller('adminController',function($scope,$state,$http){
+    // logging out and redirect to login page
+    $scope.logout = function () {
+        $http.post('database/logout.php')
+            .success(function (data) {
+                if (data == "success") {
+                    $state.go('index');
+                }
+            });
     };
 });
