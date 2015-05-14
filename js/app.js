@@ -15,9 +15,43 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
                     templateUrl: "home.html"
                 }
             }
-
+        }).state('graph', {
+            url: '/graph',
+            views: {
+                "navbar":{
+                    templateUrl: "header.html",
+                    controller: 'homeController'
+                },
+                "content":{
+                    templateUrl: "graph.html"
+                }
+            }
         }).state('doctor', {
             url: '/doctor',
+            views: {
+                "navbar":{
+                    templateUrl: "doctor/doctor_header.html",
+                    controller: 'doctorController'
+                },
+                "content":{
+                    templateUrl: "doctor/doctor.html",
+                    controller: 'doctorController'
+                }
+            }
+        }).state('config', {
+            url: '/config',
+            views: {
+                "navbar":{
+                    templateUrl: "doctor/doctor_header.html",
+                    controller: 'doctorController'
+                },
+                "content":{
+                    templateUrl: "doctor/config.html",
+                    controller: 'configController'
+                }
+            }
+        }).state('add', {
+            url: '/add',
             views: {
                 "navbar":{
                     templateUrl: "doctor/doctor_header.html",
@@ -131,6 +165,10 @@ myApp.controller('doctorController',function($scope,$state,$http){
             });
     };
 
+    $scope.config = function(){
+        $state.go('config');
+    };
+
     $scope.addPatient = function(){
         $http.post('database/add_patient.php',{id:$scope.id,name:$scope.name,surname:$scope.surname,telno:$scope.telephone_num,sex:$scope.selectedItem,congi_disease:$scope.congi_disease,age:$scope.age})
             .success(function(result){
@@ -161,4 +199,8 @@ myApp.controller('doctorController',function($scope,$state,$http){
                 }
             });
     };
+});
+
+myApp.controller('configController',function(){
+
 });
