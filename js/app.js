@@ -76,7 +76,6 @@ myApp.controller('adminController',function($scope,$state,$http){
         $scope.loadUsers();
     });
 
-
     $scope.loadUsers = function(){
         $http.post('database/load_users.php')
             .success(function(data){
@@ -90,6 +89,9 @@ myApp.controller('adminController',function($scope,$state,$http){
             .success(function (data) {
                 if (data == "success") {
                     $state.go('index');
+                }else{
+                    console.log("fail");
+                    $state.go('index');
                 }
             });
     };
@@ -98,6 +100,7 @@ myApp.controller('adminController',function($scope,$state,$http){
         $http.post('database/add_doctor.php',{username:$scope.username,password:$scope.password,status:$scope.selectedItem})
             .success(function(result){
                 console.log(result);
+                $scope.users.push(result[0]);
             })
     }
 });
