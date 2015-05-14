@@ -16,6 +16,17 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
                 }
             }
 
+        }).state('doctor', {
+            url: '/doctor',
+            views: {
+                "navbar":{
+                    templateUrl: "doctor/doctor_header.html",
+                    controller: 'doctorController'
+                },
+                "content":{
+                    templateUrl: "doctor/doctor.html"
+                }
+            }
         })
         .state('admin', {
             url: '/admin',
@@ -44,6 +55,7 @@ myApp.controller('homeController',function($scope,$state,$http){
                     break;
                 case "doctor":
                     console.log("Logged in as doctor");
+                    $state.go('doctor');
                     break;
                 default:
                     console.log("Logged in failed");
@@ -64,4 +76,8 @@ myApp.controller('adminController',function($scope,$state,$http){
                 }
             });
     };
+});
+
+myApp.controller('doctorController',function($scope,$state,$http){
+
 });
