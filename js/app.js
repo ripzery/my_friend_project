@@ -117,4 +117,27 @@ myApp.controller('adminController',function($scope,$state,$http){
 
 myApp.controller('doctorController',function($scope,$state,$http){
 
+    $scope.selectedItem = "Male";
+    $scope.sex = ["Male","Female"];
+
+    $scope.$on('$viewContentLoaded', function () {
+        $scope.loadPatients();
+    });
+
+    $scope.loadPatients = function(){
+        $http.post('database/load_patient.php')
+            .success(function(data){
+                $scope.patients = data;
+            });
+    };
+
+    $scope.addPatient = function(){
+        $http.post('database/add_patient.php',{id:$scope.id,name:$scope.name,surname:$scope.surname,telno:$scope.telephone_num,sex:$scope.selectedItem,congi_disease:$scope.congi_disease,age:$scope.age})
+            .success(function(result){
+                console.log(result);
+                $scope.patients.push(result[0]);
+            })
+    }
+
+
 });

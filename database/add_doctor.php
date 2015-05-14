@@ -4,7 +4,7 @@ $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
 
 //create user row and set all data
-//
+
 $user = R::dispense('users');
 //
 $user->user_name = $request->username;
