@@ -1,0 +1,117 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- InstanceBegin template="/Templates/Template1.dwt.php" codeOutsideHTMLIsLocked="false" -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!-- InstanceBeginEditable name="doctitle" --><title>Config Alert Page</title><!-- InstanceEndEditable -->
+<style>
+    .row{
+        margin-top: 10px;
+    }
+</style>
+</head>
+
+<body>
+<div class="container">
+    <div class="row" style="margin-top: 40px;">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Configuration</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="nav nav-tabs">
+                        <li role="presentation" class="active"><a href="#preset" show-tab=" ">Preset</a></li>
+                        <li role="presentation"><a href="#manual" show-tab=" ">Manual</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="preset">
+                            <form>
+                                <div class="col-md-5" style="padding-left: 0px">
+                                    <div class="form-group">
+                                        <label for="ageRange">ช่วงอายุของคนไข้</label>
+                                        <select class="form-control" id="ageRange" ng-change="presetHB()" ng-model="item">
+                                            <option value="age"> - - - เลือกช่วงอายุ - - -</option>
+                                            <option value="f">12 ปีขึ้นไป</option>
+                                            <option value="e">6 - 12 ปี</option>
+                                            <option value="d">2 - 6 ปี</option>
+                                            <option value="c">1 - 2 ปี</option>
+                                            <option value="b">1 – 12 เดือน</option>
+                                            <option value="a">ทารกแรกเกิด – 1 เดือน</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-offset-6 col-md-3 text-center">
+                                            <label for="minHeartRate">ต่ำสุด</label>
+                                        </div>
+
+                                        <div class="col-md-3 text-center">
+                                            <label >สูงสุด</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>อัตราการเต้นของหัวใจ (ครั้ง/นาที)</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="number" ng-model="min" disabled class="form-control" id="minheartRate" placeholder="min">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="number" ng-model="max" disabled class="form-control" id="maxheartRate" placeholder="max">
+                                        </div>
+                                    </div>
+                                    <!--<div class="row">-->
+                                    <!--<div class="col-md-6">-->
+                                    <!--<label>อุณหภูมิของร่างกาย (°C)</label>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-3">-->
+                                    <!--<input type="number" class="form-control" id="minTemp">-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-3">-->
+                                    <!--<input type="number" class="form-control" id="maxTemp">-->
+                                    <!--</div>-->
+                                    <!--</div>-->
+                                </div>
+                                <button type="submit" class="btn btn-primary center-block">Submit</button>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="manual">
+                            <form>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-offset-6 col-md-3 text-center">
+                                            <label for="minHeartRate">ต่ำสุด</label>
+                                        </div>
+
+                                        <div class="col-md-3 text-center">
+                                            <label >สูงสุด</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>อัตราการเต้นของหัวใจ (ครั้ง/นาที)</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="number" ng-model="min" disabled class="form-control" id="minHR" placeholder="min">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="number" ng-model="max" disabled class="form-control" id="maxHR" placeholder="max">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary center-block">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+<!-- InstanceEnd --></html>

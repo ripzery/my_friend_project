@@ -2,7 +2,7 @@ var myApp = angular.module('myApp', ['ui.router']);
 
 // define route and controller for each view
 myApp.config(function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise("/index");
+    //$urlRouterProvider.otherwise("/index");
     $stateProvider
         .state('index', {
             url: '/index',
@@ -46,7 +46,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
                     controller: 'doctorController'
                 },
                 "content":{
-                    templateUrl: "doctor/config.html",
+                    templateUrl: "doctor/config2.html",
                     controller: 'configController'
                 }
             }
@@ -99,7 +99,6 @@ myApp.controller('homeController',function($scope,$state,$http){
             }
         });
     };
-
 });
 
 myApp.controller('adminController',function($scope,$state,$http){
@@ -152,6 +151,7 @@ myApp.controller('adminController',function($scope,$state,$http){
 myApp.controller('doctorController',function($scope,$state,$http){
 
     $scope.selectedItem = "Male";
+
     $scope.sex = ["Male","Female"];
 
     $scope.$on('$viewContentLoaded', function () {
@@ -201,6 +201,53 @@ myApp.controller('doctorController',function($scope,$state,$http){
     };
 });
 
-myApp.controller('configController',function(){
+myApp.controller('configController',function($scope){
+    $scope.item = "age";
 
+    $scope.presetHB = function(){
+        //$http.post('database/preset.php')
+        //    .success(function(data){
+        //        console.log(data);
+        //    });
+        switch($scope.item){
+            case "a" :
+                $scope.min = 120;
+                $scope.max = 160;
+                break;
+            case "b" :
+                $scope.min = 80;
+                $scope.max = 140;
+                break;
+            case "c" :
+                $scope.min = 80;
+                $scope.max = 130;
+                break;
+            case "d" :
+                $scope.min = 75;
+                $scope.max = 120;
+                break;
+            case "e" :
+                $scope.min = 75;
+                $scope.max = 110;
+                break;
+            case "f" :
+                $scope.min = 60;
+                $scope.max = 100;
+                break;
+            default :
+
+        }
+    }
 });
+
+myApp.directive('showTab',
+    function(){
+        return {
+            link : function(scope,element,attrs){
+                element.click(function(e){
+                    e.preventDefault();
+                    $(element).tab('show');
+                });
+            }
+        }
+    });
