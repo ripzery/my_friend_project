@@ -1,8 +1,8 @@
-var myApp = angular.module('myApp', ['ui.router']);
+var myApp = angular.module('myApp', ['ui.router','ui.bootstrap']);
 
 // define route and controller for each view
 myApp.config(function ($stateProvider, $urlRouterProvider) {
-    //$urlRouterProvider.otherwise("/index");
+    $urlRouterProvider.otherwise("/index");
     $stateProvider
         .state('index', {
             url: '/index',
