@@ -10,3 +10,12 @@
 }
 
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+#us, #pw {
+    color: #f5f5f5;
+    font-size: larger;
+}
+
+#username, #password {
+    color: #FFFFFF;
+}
