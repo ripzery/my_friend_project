@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ui.router','ui.bootstrap']);
+var myApp = angular.module('myApp', ['ui.router', 'ui.bootstrap', "xeditable"]);
 
 // define route and controller for each view
 myApp.config(function ($stateProvider, $urlRouterProvider) {
@@ -26,31 +26,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
                     templateUrl: "graph.html"
                 }
             }
-        }).state('doctor', {
-            url: '/doctor',
-            views: {
-                "navbar":{
-                    templateUrl: "doctor/doctor_header.html",
-                    controller: 'doctorController'
-                },
-                "content":{
-                    templateUrl: "doctor/doctor.html",
-                    controller: 'doctorController'
-                }
-            }
-        }).state('config', {
-            url: '/config',
-            views: {
-                "navbar":{
-                    templateUrl: "doctor/doctor_header.html",
-                    controller: 'doctorController'
-                },
-                "content":{
-                    templateUrl: "doctor/config2.html",
-                    controller: 'configController'
-                }
-            }
-        }).state('add', {
+        }).state('doctor_add', {
             url: '/add',
             views: {
                 "navbar":{
@@ -58,8 +34,21 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
                     controller: 'doctorController'
                 },
                 "content":{
-                    templateUrl: "doctor/doctor.html",
+                    templateUrl: "doctor/add.html",
+                    controller: 'doctorAddController'
+                }
+            }
+        })
+        .state('doctor_view', {
+            url: '/view',
+            views: {
+                "navbar": {
+                    templateUrl: "doctor/doctor_header.html",
                     controller: 'doctorController'
+                },
+                "content": {
+                    templateUrl: "doctor/view.html",
+                    controller: 'doctorViewController'
                 }
             }
         })
@@ -78,6 +67,11 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
         });
 });
 
+// set theme for x-editable
+myApp.run(function (editableOptions) {
+    editableOptions.theme = 'bs3';
+});
+
 myApp.controller('homeController',function($scope,$state,$http){
     $scope.login = function(){
         console.log("/login");
@@ -91,7 +85,7 @@ myApp.controller('homeController',function($scope,$state,$http){
                     break;
                 case "doctor":
                     console.log("Logged in as doctor");
-                    $state.go('doctor');
+                    $state.go('doctor_add');
                     break;
                 default:
                     console.log("Logged in failed");
@@ -150,10 +144,6 @@ myApp.controller('adminController',function($scope,$state,$http){
 
 myApp.controller('doctorController',function($scope,$state,$http){
 
-    $scope.selectedItem = "Male";
-
-    $scope.sex = ["Male","Female"];
-
     $scope.$on('$viewContentLoaded', function () {
         $scope.loadPatients();
     });
@@ -165,17 +155,26 @@ myApp.controller('doctorController',function($scope,$state,$http){
             });
     };
 
-    $scope.config = function(){
-        $state.go('config');
-    };
-
-    $scope.addPatient = function(){
-        $http.post('database/add_patient.php',{id:$scope.id,name:$scope.name,surname:$scope.surname,telno:$scope.telephone_num,sex:$scope.selectedItem,congi_disease:$scope.congi_disease,age:$scope.age})
+    $scope.savePatient = function (data, patient_id) {
+        angular.extend(data, {patient_id: patient_id});
+        $http.post('database/save_patient.php', data)
             .success(function(result){
                 console.log(result);
-                $scope.patients.push(result[0]);
+                if (result == patient_id) {
+                    console.log("Change Patient successful");
+                } else {
+                    console.log("Save failed");
+                }
             })
     };
+
+    //$scope.addPatient = function(){
+    //    $http.post('database/add_patient.php',{id:$scope.id,name:$scope.name,surname:$scope.surname,telno:$scope.telephone_num,sex:$scope.selectedItem,congi_disease:$scope.congi_disease,age:$scope.age})
+    //        .success(function(result){
+    //            console.log(result);
+    //            $scope.patients.push(result[0]);
+    //        })
+    //};
 
     $scope.removePatient = function (index) {
         $http.post('database/remove_patient.php', {
@@ -238,6 +237,28 @@ myApp.controller('configController',function($scope){
 
         }
     }
+});
+
+myApp.controller('doctorAddController', function ($scope) {
+    $scope.selectedItem = "Male";
+
+    $scope.sex = ["Male", "Female"];
+
+    $scope.addPatient = function () {
+        $http.post('database/add_patient.php', {
+            id: $scope.id,
+            name: $scope.name,
+            surname: $scope.surname,
+            telno: $scope.telephone_num,
+            sex: $scope.selectedItem,
+            congi_disease: $scope.congi_disease,
+            age: $scope.age
+        })
+            .success(function (result) {
+                console.log(result);
+                $scope.patients.push(result[0]);
+            })
+    };
 });
 
 myApp.directive('showTab',

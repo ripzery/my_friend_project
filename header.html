@@ -1,6 +1,6 @@
-<div style="background-color: #34495e">
+<div class="navbar navbar-default navbar-fixed-top">
     <div class="navbar-header">
-        <a class="navbar-brand" href="#" style="color: #ffffff">Mobile Emergency Patient Monitoring System</a>
+        <a class="navbar-brand">Mobile Emergency Patient Monitoring System</a>
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -15,12 +15,14 @@
                 <form class="form-inline" ng-submit="login()">
                     <div class="form-group">
                         <label for="username" id="us">Username : </label>
-                        <input id="username" ng-model="username" name="username" type="text" maxlength="12"
+                        <input id="username" placeholder="Username" ng-model="username" name="username" type="text"
+                               maxlength="12"
                                class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="password" id="pw">Password : </label>
-                        <input id="password" ng-model="password" name="password" type="password" maxlength="12" class="form-control">
+                        <input id="password" placeholder="Password" ng-model="password" name="password" type="password"
+                               maxlength="12" class="form-control">
                     </div>
                     <div class="form-group">
                         <input class="btn btn-primary" type="submit" value="Submit">

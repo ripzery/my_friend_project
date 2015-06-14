@@ -1,0 +1,101 @@
+<div class="container content" style="margin-top: 40px;">
+    <div class="row">
+        <div class="page-header">
+            <h4>View Patient</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Sex</th>
+                    <th>Tel no.</th>
+                    <th>Age</th>
+                    <th>Disease</th>
+                    <th>MinHR</th>
+                    <th>MaxHR</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="patient in patients">
+                    <td style="width: 10%;">
+                                    <span editable-text="patient.patient_id" e-name="patient_id" e-form="rowform"
+                                          e-required>
+                                      {{ patient.patient_id || 'empty' }}
+                                    </span>
+                    </td>
+                    <td style="width: 5%;">
+                                    <span editable-text="patient.name" e-name="name" e-form="rowform" e-required>
+                                      {{ patient.name  || 'empty' }}
+                                    </span>
+                    </td>
+                    <td>
+                                    <span editable-text="patient.surname" e-name="surname" e-form="rowform" e-required>
+                                      {{ patient.surname || 'empty' }}
+                                    </span>
+                    </td>
+                    <td>
+                                    <span editable-text="patient.sex" e-name="sex" e-form="rowform" e-required>
+                                      {{ patient.sex || 'empty' }}
+                                    </span>
+                    </td>
+                    <td>
+                                    <span editable-text="patient.telephone_num" e-name="telephone_num" e-form="rowform"
+                                          e-required>
+                                      {{ patient.telephone_num || 'empty' }}
+                                    </span>
+                    </td>
+                    <td>
+                                    <span editable-text="patient.age" e-name="age" e-form="rowform" e-required>
+                                      {{ patient.age  || 'empty' }}
+                                    </span>
+                    </td>
+                    <td>
+                                    <span editable-text="patient.congi_disease" e-name="congi_disease" e-form="rowform"
+                                          e-required>
+                                      {{ patient.congi_disease || 'empty' }}
+                                    </span>
+                    </td>
+                    <td>
+                                    <span editable-text="patient.min_heartrate" e-name="minHR" e-form="rowform"
+                                          e-required>
+                                      {{ patient.min_heartrate }}
+                                    </span>
+                    </td>
+                    <td>
+                                    <span editable-text="patient.max_heartrate" e-name="maxHR" e-form="rowform"
+                                          e-required>
+                                      {{ patient.max_heartrate }}
+                                    </span>
+                    </td>
+                    <td style="white-space: nowrap">
+                        <!-- form -->
+                        <form editable-form name="rowform"
+                              onbeforesave="savePatient($data, patient.patient_id)"
+                              ng-show="rowform.$visible" class="form-buttons form-inline"
+                              shown="inserted == patient">
+                            <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                                save
+                            </button>
+                            <button type="button" ng-disabled="rowform.$waiting"
+                                    ng-click="rowform.$cancel()" class="btn btn-default">
+                                cancel
+                            </button>
+                        </form>
+                        <div class="buttons" ng-show="!rowform.$visible">
+                            <button class="btn btn-sm btn-primary" ng-click="rowform.$show()">Edit</button>
+                            <button class="btn btn-sm btn-danger" ng-click="removePatient($index)">Delete
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
