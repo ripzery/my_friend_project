@@ -15,6 +15,8 @@ $patient->surname = $request->surname;
 $patient->age = $request->age;
 $patient->telephone_num = $request->telno;
 $patient->congi_disease = $request->congi_disease;
+$patient->min_heartrate = $request->min;
+$patient->max_heartrate = $request->max;
 
 
 try {

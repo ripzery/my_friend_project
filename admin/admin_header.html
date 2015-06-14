@@ -1,7 +1,6 @@
-<div style="background-color: #34495e" class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#" style="color: #ffffff">Mobile Emergency Patient Monitoring System</a>
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                     data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
@@ -9,19 +8,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
+            <a class="navbar-brand" ui-sref="index">Patient Monitoring System</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right" style="margin-top: 10px; margin-right: 10px">
-                <li>
-                    <form ng-submit="logout()">
-                        <div class="form-group">
-                            <input class="btn btn-primary" type="submit" value="Logout">
-                        </div>
-                    </form>
-                </li>
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-click="logout()" style="color: #0a6ebd"><a>Logout</a></li>
             </ul>
         </div>
     </div>
-
-</div>
+</nav>

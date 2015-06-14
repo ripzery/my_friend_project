@@ -23,57 +23,57 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="patient in patients">
+                    <td style="width: 5%;">
+                        <span editable-text="patient.patient_id" e-name="patient_id" e-form="rowform"
+                              e-required>
+                          {{ patient.patient_id || 'empty' }}
+                        </span>
+                    </td>
                     <td style="width: 10%;">
-                                    <span editable-text="patient.patient_id" e-name="patient_id" e-form="rowform"
-                                          e-required>
-                                      {{ patient.patient_id || 'empty' }}
-                                    </span>
+                        <span editable-text="patient.name" e-name="name" e-form="rowform" e-required>
+                          {{ patient.name  || 'empty' }}
+                        </span>
+                    </td>
+                    <td style="width:15%;">
+                        <span editable-text="patient.surname" e-name="surname" e-form="rowform" e-required>
+                          {{ patient.surname || 'empty' }}
+                        </span>
                     </td>
                     <td style="width: 5%;">
-                                    <span editable-text="patient.name" e-name="name" e-form="rowform" e-required>
-                                      {{ patient.name  || 'empty' }}
-                                    </span>
+                        <span editable-text="patient.sex" e-name="sex" e-form="rowform" e-required>
+                          {{ patient.sex || 'empty' }}
+                        </span>
                     </td>
-                    <td>
-                                    <span editable-text="patient.surname" e-name="surname" e-form="rowform" e-required>
-                                      {{ patient.surname || 'empty' }}
-                                    </span>
+                    <td style="width: 10%">
+                        <span editable-text="patient.telephone_num" e-name="telephone_num" e-form="rowform"
+                              e-required>
+                          {{ patient.telephone_num || 'empty' }}
+                        </span>
                     </td>
-                    <td>
-                                    <span editable-text="patient.sex" e-name="sex" e-form="rowform" e-required>
-                                      {{ patient.sex || 'empty' }}
-                                    </span>
+                    <td style="width: 5%">
+                        <span editable-text="patient.age" e-name="age" e-form="rowform" e-required>
+                          {{ patient.age  || 'empty' }}
+                        </span>
                     </td>
-                    <td>
-                                    <span editable-text="patient.telephone_num" e-name="telephone_num" e-form="rowform"
-                                          e-required>
-                                      {{ patient.telephone_num || 'empty' }}
-                                    </span>
+                    <td style="width: 14%">
+                        <span editable-text="patient.congi_disease" e-name="congi_disease" e-form="rowform"
+                              e-required>
+                          {{ patient.congi_disease || 'empty' }}
+                        </span>
                     </td>
-                    <td>
-                                    <span editable-text="patient.age" e-name="age" e-form="rowform" e-required>
-                                      {{ patient.age  || 'empty' }}
-                                    </span>
+                    <td style="width: 8%">
+                        <span editable-text="patient.min_heartrate" e-name="minHR" e-form="rowform"
+                              e-required>
+                          {{ patient.min_heartrate }}
+                        </span>
                     </td>
-                    <td>
-                                    <span editable-text="patient.congi_disease" e-name="congi_disease" e-form="rowform"
-                                          e-required>
-                                      {{ patient.congi_disease || 'empty' }}
-                                    </span>
+                    <td style="width: 8%">
+                        <span editable-text="patient.max_heartrate" e-name="maxHR" e-form="rowform"
+                              e-required>
+                          {{ patient.max_heartrate }}
+                        </span>
                     </td>
-                    <td>
-                                    <span editable-text="patient.min_heartrate" e-name="minHR" e-form="rowform"
-                                          e-required>
-                                      {{ patient.min_heartrate }}
-                                    </span>
-                    </td>
-                    <td>
-                                    <span editable-text="patient.max_heartrate" e-name="maxHR" e-form="rowform"
-                                          e-required>
-                                      {{ patient.max_heartrate }}
-                                    </span>
-                    </td>
-                    <td style="white-space: nowrap">
+                    <td style="white-space: nowrap;width: 20%;">
                         <!-- form -->
                         <form editable-form name="rowform"
                               onbeforesave="savePatient($data, patient.patient_id)"

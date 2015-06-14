@@ -100,8 +100,26 @@ myApp.controller('adminController',function($scope,$state,$http){
     $scope.status = ["admin","doctor"];
 
     $scope.$on('$viewContentLoaded', function () {
+        $scope.isLogin();
         $scope.loadUsers();
     });
+
+    $scope.isLogin = function () {
+        $http.post('database/check_login')
+            .success(function (data) {
+                switch (data) {
+                    case "admin":
+                        break;
+                    case "doctor":
+                        alert("You are not login yet!");
+                        $state.go('index');
+                        break;
+                    default:
+                        alert("You are not login yet!");
+                        $state.go('index');
+                }
+            });
+    };
 
     $scope.loadUsers = function(){
         $http.post('database/load_users.php')
@@ -143,48 +161,6 @@ myApp.controller('adminController',function($scope,$state,$http){
 });
 
 myApp.controller('doctorController',function($scope,$state,$http){
-
-    $scope.$on('$viewContentLoaded', function () {
-        $scope.loadPatients();
-    });
-
-    $scope.loadPatients = function(){
-        $http.post('database/load_patient.php')
-            .success(function(data){
-                $scope.patients = data;
-            });
-    };
-
-    $scope.savePatient = function (data, patient_id) {
-        angular.extend(data, {patient_id: patient_id});
-        $http.post('database/save_patient.php', data)
-            .success(function(result){
-                console.log(result);
-                if (result == patient_id) {
-                    console.log("Change Patient successful");
-                } else {
-                    console.log("Save failed");
-                }
-            })
-    };
-
-    //$scope.addPatient = function(){
-    //    $http.post('database/add_patient.php',{id:$scope.id,name:$scope.name,surname:$scope.surname,telno:$scope.telephone_num,sex:$scope.selectedItem,congi_disease:$scope.congi_disease,age:$scope.age})
-    //        .success(function(result){
-    //            console.log(result);
-    //            $scope.patients.push(result[0]);
-    //        })
-    //};
-
-    $scope.removePatient = function (index) {
-        $http.post('database/remove_patient.php', {
-            id: $scope.patients[index].id
-        })
-            .success(function (data, status, headers, config) {
-                alert(data);
-            });
-        $scope.patients.splice(index, 1);
-    };
 
     // logging out and redirect to login page
     $scope.logout = function () {
@@ -239,10 +215,31 @@ myApp.controller('configController',function($scope){
     }
 });
 
-myApp.controller('doctorAddController', function ($scope) {
+myApp.controller('doctorAddController', function ($scope, $http) {
     $scope.selectedItem = "Male";
 
     $scope.sex = ["Male", "Female"];
+
+    $scope.$on('$viewContentLoaded', function () {
+        $scope.isLogin();
+    });
+
+    $scope.isLogin = function () {
+        $http.post('database/check_login')
+            .success(function (data) {
+                switch (data) {
+                    case "admin":
+                        alert("You are not login yet!");
+                        $state.go('index');
+                        break;
+                    case "doctor":
+                        break;
+                    default:
+                        alert("You are not login yet!");
+                        $state.go('index');
+                }
+            });
+    };
 
     $scope.addPatient = function () {
         $http.post('database/add_patient.php', {
@@ -252,12 +249,67 @@ myApp.controller('doctorAddController', function ($scope) {
             telno: $scope.telephone_num,
             sex: $scope.selectedItem,
             congi_disease: $scope.congi_disease,
-            age: $scope.age
-        })
+            age: $scope.age,
+            min: $scope.minHR,
+            max: $scope.maxHR
+        }).success(function (result) {
+                console.log(result);
+            })
+    };
+});
+
+myApp.controller('doctorViewController', function ($scope, $http) {
+    $scope.$on('$viewContentLoaded', function () {
+        $scope.isLogin();
+        $scope.loadPatients();
+    });
+
+
+    $scope.isLogin = function () {
+        $http.post('database/check_login')
+            .success(function (data) {
+                switch (data) {
+                    case "admin":
+                        alert("You are not login yet!");
+                        $state.go('index');
+                        break;
+                    case "doctor":
+                        break;
+                    default:
+                        alert("You are not login yet!");
+                        $state.go('index');
+                }
+            });
+    };
+
+    $scope.loadPatients = function () {
+        $http.post('database/load_patient.php')
+            .success(function (data) {
+                $scope.patients = data;
+            });
+    };
+
+    $scope.savePatient = function (data, patient_id) {
+        angular.extend(data, {patient_id: patient_id});
+        $http.post('database/save_patient.php', data)
             .success(function (result) {
                 console.log(result);
-                $scope.patients.push(result[0]);
+                if (result == patient_id) {
+                    console.log("Change Patient successful");
+                } else {
+                    console.log("Save failed");
+                }
             })
+    };
+
+    $scope.removePatient = function (index) {
+        $http.post('database/remove_patient.php', {
+            id: $scope.patients[index].id
+        })
+            .success(function (data, status, headers, config) {
+                alert(data);
+            });
+        $scope.patients.splice(index, 1);
     };
 });
 
