@@ -105,7 +105,7 @@ myApp.controller('adminController',function($scope,$state,$http){
     });
 
     $scope.isLogin = function () {
-        $http.post('database/check_login')
+        $http.post('database/check_login.php')
             .success(function (data) {
                 switch (data) {
                     case "admin":
@@ -215,7 +215,7 @@ myApp.controller('configController',function($scope){
     }
 });
 
-myApp.controller('doctorAddController', function ($scope, $http) {
+myApp.controller('doctorAddController', function ($scope, $http, $state) {
     $scope.selectedItem = "Male";
 
     $scope.sex = ["Male", "Female"];
@@ -225,7 +225,7 @@ myApp.controller('doctorAddController', function ($scope, $http) {
     });
 
     $scope.isLogin = function () {
-        $http.post('database/check_login')
+        $http.post('database/check_login.php')
             .success(function (data) {
                 switch (data) {
                     case "admin":
@@ -258,7 +258,7 @@ myApp.controller('doctorAddController', function ($scope, $http) {
     };
 });
 
-myApp.controller('doctorViewController', function ($scope, $http) {
+myApp.controller('doctorViewController', function ($scope, $http, $state) {
     $scope.$on('$viewContentLoaded', function () {
         $scope.isLogin();
         $scope.loadPatients();
@@ -266,7 +266,7 @@ myApp.controller('doctorViewController', function ($scope, $http) {
 
 
     $scope.isLogin = function () {
-        $http.post('database/check_login')
+        $http.post('database/check_login.php')
             .success(function (data) {
                 switch (data) {
                     case "admin":
