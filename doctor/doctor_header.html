@@ -14,16 +14,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a ui-sref="doctor_add">Add</a></li>
-                <li><a ui-sref="doctor_view">View</a></li>
-                <li><a>Logout</a></li>
-                <!--<li>-->
-                <!--<form ng-submit="logout()">-->
-                <!--<div class="form-group">-->
-                <!--<input class="btn btn-primary" type="submit" value="Logout">-->
-                <!--</div>-->
-                <!--</form>-->
-                <!--</li>-->
+                <li ui-sref-active="active"><a ui-sref="doctor_add">Add</a></li>
+                <li ui-sref-active="active"><a ui-sref="doctor_view">View</a></li>
+                <li ng-click="logout()" style="color: #0a6ebd"><a>Logout</a></li>
             </ul>
         </div>
     </div>
