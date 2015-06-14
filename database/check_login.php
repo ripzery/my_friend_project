@@ -11,10 +11,6 @@ if (isset($_SESSION['logged_in'])) {
     } else if ($_SESSION['status'] == "doctor") { // doctor
         echo "doctor";
         return;
-    } else {
-        $user = R::load('users', $_SESSION['uid']);
-        echo $user->username;
-        return;
     }
 }
 echo "fail";
