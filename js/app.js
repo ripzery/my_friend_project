@@ -9,24 +9,41 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
             views: {
                 "navbar":{
                     templateUrl: "header.html",
-                    controller: 'homeController'
+                    controller: 'loginController'
                 },
                 "content":{
-                    templateUrl: "home.html"
+                    templateUrl: "home.html",
+                    controller: "homeController"
                 }
             }
-        }).state('graph', {
+        })
+        .state('graph', {
             url: '/graph',
             views: {
                 "navbar":{
                     templateUrl: "header.html",
-                    controller: 'homeController'
+                    controller: 'loginController'
                 },
                 "content":{
-                    templateUrl: "graph.html"
+                    templateUrl: "graph.html",
+                    controller: "homeController"
                 }
             }
-        }).state('doctor_add', {
+        })
+        .state('history', {
+            url: '/history',
+            views: {
+                "navbar": {
+                    templateUrl: "header.html",
+                    controller: 'loginController'
+                },
+                "content": {
+                    templateUrl: "history.html",
+                    controller: 'historyController'
+                }
+            }
+        })
+        .state('doctor_add', {
             url: '/add',
             views: {
                 "navbar":{
@@ -72,26 +89,77 @@ myApp.run(function (editableOptions) {
     editableOptions.theme = 'bs3';
 });
 
-myApp.controller('homeController',function($scope,$state,$http){
+myApp.controller('loginController', function ($scope, $state, $http) {
     $scope.login = function(){
         console.log("/login");
 
-    $http.post('database/login.php',{username: $scope.username, password: $scope.password })
-        .success(function (result) {
-            switch (result){
-                case "admin":
-                    console.log("Logged in as admin");
-                    $state.go('admin');
-                    break;
-                case "doctor":
-                    console.log("Logged in as doctor");
-                    $state.go('doctor_add');
-                    break;
-                default:
-                    console.log("Logged in failed");
-                    break;
-            }
-        });
+        $http.post('database/login.php', {username: $scope.username, password: $scope.password})
+            .success(function (result) {
+                switch (result) {
+                    case "admin":
+                        console.log("Logged in as admin");
+                        $state.go('admin');
+                        break;
+                    case "doctor":
+                        console.log("Logged in as doctor");
+                        $state.go('doctor_add');
+                        break;
+                    default:
+                        console.log("Logged in failed");
+                        break;
+                }
+            });
+    };
+});
+
+myApp.controller('homeController', function ($scope, $state, $http, patientService) {
+
+    $scope.$on('$viewContentLoaded', function () {
+        if ($scope.patients == null)
+            $scope.loadPatients();
+        //$scope.loadLastPatientPulse();
+    });
+
+    $scope.loadPatients = function () {
+        $http.post('database/load_patient.php')
+            .success(function (data) {
+                console.log(data);
+                $scope.patients = data;
+            });
+    };
+
+    $scope.loadLastPatientPulse = function () {
+        $http.post('database/load_patient_pulse.php')
+            .success(function (data) {
+                console.log(data);
+                $scope.patients_pulse = data;
+            })
+    };
+
+    $scope.setPatient = function (patient) {
+        patientService.setPatient(patient);
+    }
+
+});
+
+myApp.controller('historyController', function ($scope, $state, $http, patientService) {
+    $scope.patient = patientService.getPatient();
+});
+
+myApp.service('patientService', function () {
+    var patient;
+
+    var setPatient = function (target) {
+        patient = target;
+    };
+
+    var getPatient = function () {
+        return patient;
+    };
+
+    return {
+        setPatient: setPatient,
+        getPatient: getPatient
     };
 });
 

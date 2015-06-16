@@ -1,35 +1,52 @@
 <!--<img src="img/Logo.jpg" class="center-block img-thumbnail" style="margin-top: 56px">-->
 
-<div class="container content" style="margin-top: 64px;">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            Patient status
+<div class="container content" style="margin-top: 50px;">
+    <div class="row">
+        <div class="page-header">
+            <h3>Patient's status</h3>
         </div>
-        <div class="panel-body">
-            <table class="table table-responsive">
-                <thead>
-                <th>Name</th>
-                <th>Surname</th>
-                <th>Sex</th>
-                <th>Age</th>
-                <!--<th>Pulse rate</th>-->
-                <!--<th>Temperature</th>-->
-                <th>Timestamp</th>
-                <th>View graph</th>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Piyarat</td>
-                    <td>Khanta...</td>
-                    <td>Male</td>
-                    <td>22</td>
-                    <!--<td>50</td>-->
-                    <!--<td>38</td>-->
-                    <td>21-05-2015 19:00:00</td>
-                    <td><a href="http://webserv.kmitl.ac.th/arnonkee127/mornitoring_page.php">view graph</a></td>
-                </tr>
-                </tbody>
-            </table>
+        <p class="lead">This page will show basic information of all patients </p>
+
+        <div class="col-sm-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Basic Information
+                </div>
+                <div class="panel-body">
+                    <table class="table table-responsive">
+                        <thead>
+                        <th>patient_id</th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Sex</th>
+                        <th>Age</th>
+                        <th>Pulse rate</th>
+                        <th>Timestamp</th>
+                        <th>Action</th>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="patient in patients">
+                            <td>{{patient.patient_id}}</td>
+                            <td>{{patient.name}}</td>
+                            <td>{{patient.surname}}</td>
+                            <td>{{patient.sex}}</td>
+                            <td>{{patient.age}}</td>
+                            <td>{{patient.ownPatientstatus[patient.ownPatientstatus.length-1].pulse_rate}}</td>
+                            <td>{{patient.ownPatientstatus[patient.ownPatientstatus.length-1].timestamp}}</td>
+                            <td>
+                                <div class="buttons" ng-show="!rowform.$visible">
+                                    <button class="btn btn-sm btn-primary" ui-sref="graph">Graph</button>
+                                    <button class="btn btn-sm btn-success" ui-sref="history"
+                                            ng-click="setPatient(patient);">History
+                                    </button>
+                                </div>
+                            </td>
+                            <!--<td><a href="http://webserv.kmitl.ac.th/arnonkee127/mornitoring_page.php">graph</a><a href="http://webserv.kmitl.ac.th/arnonkee127/mornitoring_page.php">history</a></td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>

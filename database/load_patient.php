@@ -1,3 +1,4 @@
 <?php
 require('config.inc.php');
-echo json_encode(R::findAndExport('patienthistory'));
+$patients = R::find('patienthistory');
+echo json_encode(R::exportAll($patients));
