@@ -1,7 +1,7 @@
 <div class="container content" style="margin-top: 40px;">
     <div class="row">
         <div class="page-header">
-            <h4>View Patient</h4>
+            <h4><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> View Patient</h4>
         </div>
     </div>
     <div class="row">
@@ -88,8 +88,11 @@
                             </button>
                         </form>
                         <div class="buttons" ng-show="!rowform.$visible">
-                            <button class="btn btn-sm btn-primary" ng-click="rowform.$show()">Edit</button>
-                            <button class="btn btn-sm btn-danger" ng-click="removePatient($index)">Delete
+                            <button class="btn btn-sm btn-primary" ng-click="rowform.$show()"><span
+                                    class="glyphicon glyphicon-edit" aria-hidden="true"></span>Edit
+                            </button>
+                            <button class="btn btn-sm btn-danger" ng-click="removePatient($index)"><span
+                                    class="glyphicon glyphicon-remove" aria-hidden="true"></span>Delete
                             </button>
                         </div>
                     </td>

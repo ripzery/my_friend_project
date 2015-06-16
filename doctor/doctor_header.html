@@ -1,7 +1,8 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-
+            <a class="navbar-brand" ui-sref="index" style="color: #c0392b;"><i class="fa fa-heartbeat"></i> Patient
+                Management</a>
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                     data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
@@ -9,14 +10,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" ui-sref="index">Patient Monitoring System</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right" style="margin-right: 10px;margin-left: 10px;">
-                <li ui-sref-active="active"><a ui-sref="doctor_add">Add</a></li>
-                <li ui-sref-active="active"><a ui-sref="doctor_view">View</a></li>
-                <li ng-click="logout()" style="color: #0a6ebd"><a>Logout</a></li>
+                <li ui-sref-active="active"><a ui-sref="doctor_add"><span class="glyphicon glyphicon-plus"
+                                                                          aria-hidden="true"></span>Add</a></li>
+                <li ui-sref-active="active"><a ui-sref="doctor_view"><span
+                        class="glyphicon glyphicon glyphicon-list-alt" aria-hidden="true"></span>View</a></li>
+                <li ng-click="logout()" style="color: #0a6ebd"><a><span class="glyphicon glyphicon-log-out"
+                                                                        aria-hidden="true"></span>Logout</a></li>
             </ul>
         </div>
     </div>

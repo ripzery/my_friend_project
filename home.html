@@ -3,19 +3,19 @@
 <div class="container content" style="margin-top: 50px;">
     <div class="row">
         <div class="page-header">
-            <h3>Patient's status</h3>
+            <h3><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Patient's status</h3>
         </div>
         <p class="lead">This page will show basic information of all patients </p>
 
         <div class="col-sm-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Basic Information
+                    <i class="fa fa-info"></i> Basic Information
                 </div>
                 <div class="panel-body">
                     <table class="table table-responsive">
                         <thead>
-                        <th>patient_id</th>
+                        <th>Patient_id</th>
                         <th>Name</th>
                         <th>Surname</th>
                         <th>Sex</th>
@@ -35,9 +35,11 @@
                             <td>{{patient.ownPatientstatus[patient.ownPatientstatus.length-1].timestamp}}</td>
                             <td>
                                 <div class="buttons" ng-show="!rowform.$visible">
-                                    <button class="btn btn-sm btn-primary" ui-sref="graph">Graph</button>
+                                    <button class="btn btn-sm btn-primary" ui-sref="graph"><i
+                                            class="fa fa-line-chart"></i> Graph
+                                    </button>
                                     <button class="btn btn-sm btn-success" ui-sref="history"
-                                            ng-click="setPatient(patient);">History
+                                            ng-click="setPatient(patient);"><i class="fa fa-history"></i> History
                                     </button>
                                 </div>
                             </td>

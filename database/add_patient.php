@@ -22,8 +22,8 @@ $patient->max_heartrate = $request->max;
 try {
     $id = R::store($patient);
 } catch (Exception $e) {
-    echo $e;
+    echo "failed";
     return;
 }
 
-echo json_encode(R::exportAll($patient));
+echo "successful";

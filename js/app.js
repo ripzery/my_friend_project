@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ui.router', 'ui.bootstrap', "xeditable"]);
+var myApp = angular.module('myApp', ['ui.router', 'ui.bootstrap', "xeditable", 'ngNotify']);
 
 // define route and controller for each view
 myApp.config(function ($stateProvider, $urlRouterProvider) {
@@ -283,7 +283,7 @@ myApp.controller('configController',function($scope){
     }
 });
 
-myApp.controller('doctorAddController', function ($scope, $http, $state) {
+myApp.controller('doctorAddController', function ($scope, $http, $state, ngNotify) {
     $scope.selectedItem = "Male";
 
     $scope.sex = ["Male", "Female"];
@@ -322,7 +322,12 @@ myApp.controller('doctorAddController', function ($scope, $http, $state) {
             max: $scope.maxHR
         }).success(function (result) {
                 console.log(result);
-            })
+            if (result == "successful") {
+                ngNotify.set('Your patient has been saved successfully.', 'success');
+            } else if (result == "failed") {
+                ngNotify.set('Duplicate patient id!', 'error');
+            }
+        });
     };
 });
 
