@@ -46,7 +46,22 @@
                                 <th>Actions</th>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="user in users">
+                            <div class="row">
+                                <div class="center-block">
+                                    <div class="col-xs-6 col-lg-4 col-md-4">
+                                        <label for="search">Search:</label>
+                                        <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                                    </div>
+                                    <div class="col-xs-6 col-lg-4 col-md-4">
+                                        <label for="search">items per page:</label>
+                                        <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <tr dir-paginate="user in users | filter: q | itemsPerPage: pageSize"
+                                current-page="currentPage"
+                                pagination-id="users-page">
                                     <td>{{ user.user_name }}</td>
                                     <td>{{ user.user_pass }}</td>
                                     <td>{{ user.status }}</td>
@@ -59,6 +74,15 @@
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+                <div class="panel-footer text-center">
+                    <div class="row">
+                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                                 pagination-id="users-page"
+                                                 template-url="library/js/dirPagination.tpl.html">
+
+                        </dir-pagination-controls>
                     </div>
                 </div>
             </div>

@@ -169,6 +169,8 @@ myApp.service('patientService', function () {
 });
 
 myApp.controller('adminController', function ($scope, $state, $http) {
+    $scope.currentPage = 1;
+    $scope.pageSize = 10;
     $scope.selectedItem = "admin";
     $scope.status = ["admin", "doctor"];
 
