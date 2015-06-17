@@ -55,11 +55,13 @@
                             </td>
                             <td>
                                 <div class="buttons" ng-show="!rowform.$visible">
-                                    <button class="btn btn-sm btn-primary" ui-sref="graph"><i
+                                    <button class="btn btn-sm btn-primary"
+                                            ui-sref="graph({patientID: patient.patient_id})"><i
                                             class="fa fa-line-chart"></i> Graph
                                     </button>
-                                    <button class="btn btn-sm btn-success" ui-sref="history"
-                                            ng-click="setPatient(patient);"><i class="fa fa-history"></i> History
+                                    <button class="btn btn-sm btn-success"
+                                            ui-sref="history({patientID: patient.patient_id})"><i
+                                            class="fa fa-history"></i> History
                                     </button>
                                 </div>
                             </td>

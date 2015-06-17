@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ui.router', 'ui.bootstrap', "xeditable", 'ngNotify', 'angularUtils.directives.dirPagination']);
+var myApp = angular.module('myApp', ['chart.js', 'ui.router', 'ui.bootstrap', "xeditable", 'ngNotify', 'angularUtils.directives.dirPagination']);
 
 // define route and controller for each view
 myApp.config(function ($stateProvider, $urlRouterProvider) {
@@ -18,7 +18,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
             }
         })
         .state('graph', {
-            url: '/graph',
+            url: '/graph/:patientID',
             views: {
                 "navbar": {
                     templateUrl: "header.html",
@@ -26,12 +26,12 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
                 },
                 "content": {
                     templateUrl: "graph.html",
-                    controller: "homeController"
+                    controller: "graphController"
                 }
             }
         })
         .state('history', {
-            url: '/history',
+            url: '/history/:patientID',
             views: {
                 "navbar": {
                     templateUrl: "header.html",
@@ -112,7 +112,7 @@ myApp.controller('loginController', function ($scope, $state, $http) {
     };
 });
 
-myApp.controller('homeController', function ($scope, $state, $http, patientService) {
+myApp.controller('homeController', function ($scope, $state, $http) {
     $scope.currentPage = 1;
     $scope.pageSize = 10;
 
@@ -129,42 +129,52 @@ myApp.controller('homeController', function ($scope, $state, $http, patientServi
             .success(function (data) {
                 console.log(data);
                 $scope.patients = data;
-                $scope.displayedCollection = [].concat($scope.patients);
             });
     };
-
-    $scope.loadLastPatientPulse = function () {
-        $http.post('database/load_patient_pulse.php')
-            .success(function (data) {
-                console.log(data);
-                $scope.patients_pulse = data;
-            })
-    };
-
-    $scope.setPatient = function (patient) {
-        patientService.setPatient(patient);
-    }
-
 });
 
-myApp.controller('historyController', function ($scope, $state, $http, patientService) {
-    $scope.patient = patientService.getPatient();
+myApp.controller('historyController', function ($scope, $http, $stateParams) {
+    $scope.currentPage = 1;
+    $scope.pageSize = 10;
+
+    $scope.$on('$viewContentLoaded', function () {
+        $scope.loadPatient();
+    });
+
+    $scope.loadPatient = function () {
+        $http.post('database/get_patient.php', {
+            id: $stateParams.patientID
+        }).success(function (data) {
+            console.log(data[0]);
+            $scope.patient = data[0];
+        });
+    };
 });
 
-myApp.service('patientService', function () {
-    var patient;
+myApp.controller('graphController', function ($scope, $http, $stateParams) {
+    $scope.pulse = [];
+    $scope.dummy = [];
+    $scope.timestamp = [];
+    $scope.series = [];
 
-    var setPatient = function (target) {
-        patient = target;
-    };
+    console.log($stateParams.patientID);
+    $scope.$on('$viewContentLoaded', function () {
+        $scope.loadPatient();
+    });
 
-    var getPatient = function () {
-        return patient;
-    };
-
-    return {
-        setPatient: setPatient,
-        getPatient: getPatient
+    $scope.loadPatient = function () {
+        $http.post('database/get_patient.php', {
+            id: $stateParams.patientID
+        }).success(function (data) {
+            console.log(data[0]);
+            $scope.patient = data[0];
+            $scope.series.push($scope.patient.name + "'s pulse rate");
+            $scope.patient.ownPatientstatus.forEach(function (record) {
+                $scope.dummy.push(record.pulse_rate);
+                $scope.timestamp.push(record.timestamp);
+            });
+            $scope.pulse.push($scope.dummy);
+        });
     };
 });
 
@@ -373,3 +383,7 @@ myApp.directive('showTab',
             }
         }
     });
+
+//myApp.factory('mySocket', function (socketFactory) {
+//    return socketFactory();
+//});

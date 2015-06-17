@@ -4,24 +4,48 @@
             <h3><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Patient ID: {{patient.patient_id}}
                 ({{patient.name}})</h3>
         </div>
-        <div class="col-lg-8 col-md-6 col-sm-12 center-block">
+        <div class="col-lg-offset-2 col-lg-8 col-md-offset-3 col-md-6 col-sm-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <span class="glyphicon glyphicon-heart" aria-hidden="true"></span> Pulse rate history
                 </div>
                 <div class="panel-body">
+                    <div class="row">
+                        <div class="center-block">
+                            <div class="col-sm-4 col-lg-2 col-md-2">
+                                <label for="search">Search:</label>
+                                <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                            </div>
+                            <div class="col-sm-4 col-lg-2 col-md-2">
+                                <label for="search">items per page:</label>
+                                <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                            </div>
+
+                        </div>
+                    </div>
                     <table class="table table-responsive">
                         <thead>
                         <th>Pulse rate</th>
                         <th>Timestamp</th>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="pulse in patient.ownPatientstatus">
+                        <tr dir-paginate="pulse in patient.ownPatientstatus | filter: q | itemsPerPage: pageSize"
+                            current-page="currentPage"
+                            pagination-id="patient-page">
                             <td>{{pulse.pulse_rate}}</td>
                             <td>{{pulse.timestamp}}</td>
                         </tr>
                         </tbody>
                     </table>
+                </div>
+                <div class="panel-footer text-center">
+                    <div class="row">
+                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                                 pagination-id="patient-page"
+                                                 template-url="library/js/dirPagination.tpl.html">
+
+                        </dir-pagination-controls>
+                    </div>
                 </div>
             </div>
         </div>
