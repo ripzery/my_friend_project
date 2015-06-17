@@ -13,7 +13,7 @@
                     <i class="fa fa-info"></i> Basic Information
                 </div>
                 <div class="panel-body">
-                    <table class="table table-responsive">
+                    <table class="table">
                         <thead>
                         <th>Patient_id</th>
                         <th>Name</th>
@@ -23,16 +23,36 @@
                         <th>Pulse rate</th>
                         <th>Timestamp</th>
                         <th>Action</th>
+
                         </thead>
                         <tbody>
-                        <tr ng-repeat="patient in patients">
+                        <div class="row">
+                            <div class="center-block">
+                                <div class="col-xs-3 col-lg-2 col-md-2">
+                                    <label for="search">Search:</label>
+                                    <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                                </div>
+                                <div class="col-xs-3 col-lg-2 col-md-2">
+                                    <label for="search">items per page:</label>
+                                    <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                                </div>
+
+                            </div>
+                        </div>
+                        <tr dir-paginate="patient in patients | filter: q | itemsPerPage: pageSize"
+                            current-page="currentPage"
+                            pagination-id="patient-page">
                             <td>{{patient.patient_id}}</td>
                             <td>{{patient.name}}</td>
                             <td>{{patient.surname}}</td>
                             <td>{{patient.sex}}</td>
                             <td>{{patient.age}}</td>
-                            <td>{{patient.ownPatientstatus[patient.ownPatientstatus.length-1].pulse_rate}}</td>
-                            <td>{{patient.ownPatientstatus[patient.ownPatientstatus.length-1].timestamp}}</td>
+                            <td>
+                                {{patient.ownPatientstatus[patient.ownPatientstatus.length-1].pulse_rate}}
+                            </td>
+                            <td>
+                                {{patient.ownPatientstatus[patient.ownPatientstatus.length-1].timestamp}}
+                            </td>
                             <td>
                                 <div class="buttons" ng-show="!rowform.$visible">
                                     <button class="btn btn-sm btn-primary" ui-sref="graph"><i
@@ -46,7 +66,17 @@
                             <!--<td><a href="http://webserv.kmitl.ac.th/arnonkee127/mornitoring_page.php">graph</a><a href="http://webserv.kmitl.ac.th/arnonkee127/mornitoring_page.php">history</a></td>-->
                         </tr>
                         </tbody>
+
                     </table>
+                </div>
+                <div class="panel-footer text-center">
+                    <div class="row">
+                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                                 pagination-id="patient-page"
+                                                 template-url="library/js/dirPagination.tpl.html">
+
+                        </dir-pagination-controls>
+                    </div>
                 </div>
             </div>
         </div>
